@@ -1,0 +1,32 @@
+server:
+  port: ${SERVER_PORT}
+spring:
+  application:
+    name: file-server
+  profile: ${PROFILE}
+  cloud:
+    config:
+      profile: ${spring.profile}
+      discovery:
+        enabled: true
+        serviceId: config-server
+      name: ${spring.application.name}
+      label: master
+eureka:
+  instance:
+    hostname: ${SERVER_HOSTNAME}
+    metadata-map:
+      version: @project.version@
+    instance-id: ${eureka.instance.hostname}:${spring.application.name}:${server.port}:@project.version@
+  client:
+    service-url:
+      defaultZone: http://${EUREKA_URL}:${EUREKA_PORT}/eureka/
+
+huawei:
+  obs:
+    my:
+      accessKey: "KNNNCCACMEUJFUIPJ9CQ"
+      secretKey: "S9rhE1WRVkd6oNPPUFwkjDgoUHa0Dey1TifU8p1J"
+      endPoint: "obs.zjbdos.com"
+      bucketName: "dev-test"
+      accessUrl: "https://dev-test.obs.zjbdos.com/"
